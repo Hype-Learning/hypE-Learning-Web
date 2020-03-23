@@ -11,6 +11,7 @@
 
 <script>
 import axios from "axios";
+import { server } from "@/utils/helper";
 
 export default {
   name: "CourseList",
@@ -22,7 +23,7 @@ export default {
 
   mounted() {
     axios
-      .get("http://localhost:3000/courses")
+      .get(`${server.baseURL}/courses`)
       .then(courses => (this.courses = courses.data));
   }
 };
@@ -42,7 +43,5 @@ ul {
   list-style: none;
   width: 80%;
   height: 100%;
-}
-li {
 }
 </style>
