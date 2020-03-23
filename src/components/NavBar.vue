@@ -1,7 +1,12 @@
 <template>
   <nav>
     <ul>
-      <li><a href="/login">Zaloguj</a></li>
+      <li>
+        <router-link :to="{ name: 'Login' }">
+          Zaloguj
+        </router-link>
+      </li>
+
       <li><a href="/register">Zarejestruj</a></li>
     </ul>
   </nav>
