@@ -1,7 +1,30 @@
 <template>
   <div>
-    <h1>Zaloguj</h1>
+    <h1>Rejestracja</h1>
     <form action="">
+      <label for="firstname">Imię</label>
+      <div>
+        <input
+          type="text"
+          name="firstname"
+          v-model="firstname"
+          required
+          autofocus
+          placeholder="Imię"
+        />
+      </div>
+
+      <label for="firstname">Nazwisko</label>
+      <div>
+        <input
+          type="text"
+          name="lastname"
+          v-model="lastname"
+          required
+          placeholder="Nazwisko"
+        />
+      </div>
+
       <label for="email">E-mail </label>
       <div>
         <input
@@ -9,7 +32,6 @@
           name="email"
           v-model="email"
           required
-          autofocus
           placeholder="E-mail"
         />
       </div>
@@ -23,7 +45,7 @@
         />
       </div>
 
-      <button type="submit" v-on:click="handleSubmit">Zaloguj</button>
+      <button type="submit" v-on:click="handleSubmit">Zarejestruj</button>
     </form>
   </div>
 </template>
@@ -34,6 +56,8 @@ import axios from "axios";
 export default {
   data() {
     return {
+      firstname: "",
+      lastname: "",
       email: "",
       password: ""
     };
@@ -43,13 +67,15 @@ export default {
       e.preventDefault();
       if (this.password.length > 0) {
         axios
-          .post(`${server.baseURL}/auth/signin`, {
+          .post(`${server.baseURL}/auth/signup`, {
+            firstname: this.firstname,
+            lastname: this.lastname,
             email: this.email,
             password: this.password
           })
           .then(response => {
             if (!response.data.accessToken) {
-              console.log("Not signed in");
+              console.log("Not signed up");
             }
             this.$router.push({ name: "Home" });
           })
