@@ -1,9 +1,20 @@
 <template>
   <div id="app">
+    <NavBar />
     <router-view />
   </div>
 </template>
 
+<script>
+import NavBar from "@/components/NavBar.vue";
+
+export default {
+  name: "SignIn",
+  components: {
+    NavBar
+  }
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
