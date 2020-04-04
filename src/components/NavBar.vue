@@ -1,31 +1,55 @@
 <template>
   <nav>
     <ul>
-      <li>
-        <router-link :to="{ name: 'SignIn' }">
-          Zaloguj
-        </router-link>
-      </li>
+      <template v-if="!currentUser">
+        <li>
+          <router-link :to="{ name: 'SignIn' }">
+            Zaloguj
+          </router-link>
+        </li>
 
-      <li>
-        <router-link :to="{ name: 'SignUp' }">
-          Zarejestruj
-        </router-link>
-      </li>
+        <li>
+          <router-link :to="{ name: 'SignUp' }">
+            Zarejestruj
+          </router-link>
+        </li>
+      </template>
+
+      <template v-else>
+        <li>
+          <p class="name">{{ currentEmail }}</p>
+        </li>
+
+        <li>
+          <a href="#" @click.prevent="logout">Wyloguj</a>
+        </li>
+      </template>
     </ul>
   </nav>
 </template>
 
 <script>
-// import axios from "axios";
-
 export default {
   name: "NavBar",
   data() {
     return {
-      courses: []
+      courses: [],
     };
-  }
+  },
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push({ name: "Home" });
+    },
+  },
+  computed: {
+    currentEmail() {
+      return this.$store.getters.currentEmail;
+    },
+    currentUser() {
+      return this.$store.getters.currentUser;
+    },
+  },
 };
 </script>
 
@@ -48,5 +72,8 @@ li {
 }
 a {
   text-decoration: none;
+}
+.name {
+  color: blue;
 }
 </style>

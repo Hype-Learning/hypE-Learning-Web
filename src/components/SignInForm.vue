@@ -1,64 +1,65 @@
 <template>
-  <div>
-    <h1>Zaloguj</h1>
-    <form action="">
-      <label for="email">E-mail </label>
-      <div>
-        <input
-          type="text"
-          name="email"
-          v-model="email"
-          required
-          autofocus
-          placeholder="E-mail"
-        />
-      </div>
-      <label for="password">Hasło</label>
-      <div>
-        <input
-          type="password"
-          name="password"
-          v-model="password"
-          placeholder="Hasło"
-        />
-      </div>
+  <div class="signin">
+    <div>
+      <p>Logowanie</p>
 
-      <button type="submit" v-on:click="handleSubmit">Zaloguj</button>
-    </form>
+      <form @submit.prevent="authenticate">
+        <label for="email">E-mail</label>
+        <input type="email" v-model="form.email" placeholder="E-mail" />
+        <label for="email">Hasło</label>
+        <input type="password" v-model="form.password" placeholder="Hasło" />
+
+        <input type="submit" value="Zaloguj" />
+
+        <div v-if="authError">
+          <p class="error">
+            {{ authError }}
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
-import { server } from "@/utils/helper";
-import axios from "axios";
+import { signIn } from "../helpers/auth";
 export default {
+  name: "signIn",
   data() {
     return {
-      email: "",
-      password: ""
+      form: {
+        email: "",
+        password: "",
+      },
+      error: null,
     };
   },
   methods: {
-    handleSubmit(e) {
-      e.preventDefault();
-      if (this.password.length > 0) {
-        axios
-          .post(`${server.baseURL}/auth/signin`, {
-            email: this.email,
-            password: this.password
-          })
-          .then(response => {
-            if (!response.data.accessToken) {
-              console.log("Not signed in");
-            }
-            this.$router.push({ name: "Home" });
-          })
-          .catch(function(error) {
-            console.error(error.response);
-          });
-      }
-    }
-  }
+    authenticate() {
+      this.$store.dispatch("signIn");
+
+      signIn(this.$data.form)
+        .then((res) => {
+          this.$store.commit("signInSuccess", res);
+          this.$router.push({ name: "About" });
+        })
+        .catch((error) => {
+          this.$store.commit("signInFailed", { error });
+        });
+    },
+  },
+
+  computed: {
+    authError() {
+      return this.$store.getters.authError;
+    },
+  },
 };
 </script>
-<style></style>
+
+<style scoped>
+.error {
+  text-align: center;
+  color: red;
+}
+</style>

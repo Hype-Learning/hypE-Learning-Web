@@ -9,7 +9,7 @@
 import NavBar from "@/components/NavBar.vue";
 
 export default {
-  name: "SignIn",
+  name: "app",
   components: {
     NavBar
   }
