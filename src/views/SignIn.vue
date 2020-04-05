@@ -1,7 +1,9 @@
 <template>
-  <div class="login">
-    <SignInForm />
-  </div>
+  <v-app>
+    <v-content>
+      <SignInForm />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
@@ -11,7 +13,7 @@ import SignInForm from "@/components/SignInForm.vue";
 export default {
   name: "SignIn",
   components: {
-    SignInForm
-  }
+    SignInForm,
+  },
 };
 </script>

@@ -13,7 +13,7 @@ export function signIn(credentials) {
             })
 
             .catch(() => {
-                rej("Wrong email or password");
+                rej("Zły e-mail lub hasło");
             })
     })
 }

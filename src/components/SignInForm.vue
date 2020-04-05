@@ -1,39 +1,65 @@
 <template>
-  <div class="signin">
-    <div>
-      <p>Logowanie</p>
-
-      <form @submit.prevent="authenticate">
-        <label for="email">E-mail</label>
-        <input type="email" v-model="form.email" placeholder="E-mail" />
-        <label for="email">Hasło</label>
-        <input type="password" v-model="form.password" placeholder="Hasło" />
-
-        <input type="submit" value="Zaloguj" />
-
-        <div v-if="authError">
-          <p class="error">
-            {{ authError }}
-          </p>
-        </div>
-      </form>
-    </div>
-  </div>
+  <v-form v-model="form.valid" class="mt-10">
+    <v-container fill-height fluid>
+      <v-row justify="center" align="center">
+        <v-col cols="12" md="7"><h1>Logowanie</h1></v-col>
+        <v-col cols="12" md="7">
+          <v-text-field
+            v-model="form.email"
+            :rules="rules.emailRules"
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="7">
+          <v-text-field
+            v-model="form.password"
+            :append-icon="form.show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="form.show ? 'text' : 'password'"
+            :rules="rules.passwordRules"
+            @click:append="form.show = !form.show"
+            label="Hasło"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="7">
+          <v-btn color="success" class="mr-4" @click="authenticate">
+            Zaloguj
+          </v-btn></v-col
+        >
+        <v-col cols="12" md="7">
+          <p class="error">{{ authError }}</p>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
 import { signIn } from "../helpers/auth";
 export default {
   name: "signIn",
-  data() {
-    return {
-      form: {
-        email: "",
-        password: "",
-      },
+  data: () => ({
+    form: {
+      email: "",
+      password: "",
       error: null,
-    };
-  },
+      valid: false,
+      show: false,
+    },
+
+    rules: {
+      emailRules: [
+        (v) => !!v || "E-mail jest wymagany",
+        (v) => /.+@.+/.test(v) || "E-mail musi być prawidłowy",
+      ],
+      passwordRules: [
+        (value) => !!value || "Hasło jest wymagane",
+        (v) => v.length >= 8 || "Hasło musi mieć minimum 8 znaków",
+      ],
+    },
+  }),
+
   methods: {
     authenticate() {
       this.$store.dispatch("signIn");
@@ -45,6 +71,7 @@ export default {
         })
         .catch((error) => {
           this.$store.commit("signInFailed", { error });
+          this.$router.push({ name: "SignIn" });
         });
     },
   },
@@ -60,6 +87,6 @@ export default {
 <style scoped>
 .error {
   text-align: center;
-  color: red;
+  color: white;
 }
 </style>
