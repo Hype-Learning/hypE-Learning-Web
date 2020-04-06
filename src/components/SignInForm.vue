@@ -1,36 +1,38 @@
 <template>
   <v-form v-model="form.valid" class="mt-10">
     <v-container fill-height fluid>
-      <v-row justify="center" align="center">
-        <v-col cols="12" md="7"><h1>Logowanie</h1></v-col>
-        <v-col cols="12" md="7">
-          <v-text-field
-            v-model="form.email"
-            :rules="rules.emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" md="7">
-          <v-text-field
-            v-model="form.password"
-            :append-icon="form.show ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="form.show ? 'text' : 'password'"
-            :rules="rules.passwordRules"
-            @click:append="form.show = !form.show"
-            label="Hasło"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" md="7">
-          <v-btn color="success" class="mr-4" @click="authenticate">
-            Zaloguj
-          </v-btn></v-col
-        >
-        <v-col cols="12" md="7">
-          <p class="error">{{ authError }}</p>
-        </v-col>
-      </v-row>
+      <v-card class="mx-auto" max-width="700" tile>
+        <v-row justify="center" align="center">
+          <v-col cols="12" md="7"><h1>Logowanie</h1></v-col>
+          <v-col cols="12" md="7">
+            <v-text-field
+              v-model="form.email"
+              :rules="rules.emailRules"
+              label="E-mail"
+              required
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="7">
+            <v-text-field
+              v-model="form.password"
+              :append-icon="form.show ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="form.show ? 'text' : 'password'"
+              :rules="rules.passwordRules"
+              @click:append="form.show = !form.show"
+              label="Hasło"
+              required
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="7">
+            <v-btn color="success" class="mr-4" @click="authenticate">
+              Zaloguj
+            </v-btn></v-col
+          >
+          <v-col cols="12" md="7">
+            <p class="error">{{ authError }}</p>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-container>
   </v-form>
 </template>
