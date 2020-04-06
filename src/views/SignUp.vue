@@ -9,9 +9,9 @@
 import SignUpForm from "@/components/SignUpForm.vue";
 
 export default {
-  name: "SignIn",
+  name: "SignUp",
   components: {
-    SignUpForm
-  }
+    SignUpForm,
+  },
 };
 </script>

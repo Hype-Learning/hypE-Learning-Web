@@ -57,7 +57,13 @@ export default {
       ],
       passwordRules: [
         (value) => !!value || "Hasło jest wymagane",
-        (v) => v.length >= 8 || "Hasło musi mieć minimum 8 znaków",
+        (value) => {
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+          return (
+            pattern.test(value) ||
+            "Hasło musi mieć minimum 8 znaków i co najmniej jedną wielką literę"
+          );
+        },
       ],
     },
   }),
