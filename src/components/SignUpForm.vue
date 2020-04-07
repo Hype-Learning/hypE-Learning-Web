@@ -60,6 +60,9 @@
         </v-row>
       </v-card>
     </v-container>
+    <v-snackbar :color="snackbar.color" v-model="snackbar.show" :top="true">
+      {{ snackbar.message }}
+    </v-snackbar>
   </v-form>
 </template>
 
@@ -97,6 +100,11 @@ export default {
       ],
       nameRules: [(v) => !!v || "To pole jest wymagane"],
     },
+    snackbar: {
+      show: false,
+      message: null,
+      color: null,
+    },
   }),
   methods: {
     signUp(e) {
@@ -104,8 +112,13 @@ export default {
       axios
         .post(`${server.baseURL}/auth/signup`, this.$data.form)
         .then((response) => {
-          if (!response.data.accessToken) {
+          if (!response) {
             this.$router.push({ name: "SignUp" });
+            this.$data.snackbar = {
+              message: "Rejestracja nie powiodła się",
+              color: "error",
+              show: true,
+            };
           } else {
             this.$router.push({ name: "Home" });
           }

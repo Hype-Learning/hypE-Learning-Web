@@ -29,7 +29,12 @@ const routes = [{
     path: '/signup',
     name: 'SignUp',
     component: () => import('../views/SignUp.vue')
-  }
+  },
+
+  {
+    path: '*',
+    component: () => import('../views/ErrorPage.vue')
+  },
 ]
 
 const router = new VueRouter({
