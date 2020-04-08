@@ -1,31 +1,59 @@
 <template>
-  <nav>
-    <ul>
-      <template v-if="!currentUser">
-        <li>
-          <router-link :to="{ name: 'SignIn' }">
-            Zaloguj
-          </router-link>
-        </li>
+  <v-toolbar>
+    <router-link :to="{ name: 'Home' }">
+      <v-icon>fas fa-home</v-icon>
+      HypE-Learning
+    </router-link>
 
-        <li>
-          <router-link :to="{ name: 'SignUp' }">
-            Zarejestruj
-          </router-link>
-        </li>
-      </template>
+    <v-spacer></v-spacer>
+    <nav>
+      <ul>
+        <template v-if="!currentUser">
+          <li>
+            <router-link :to="{ name: 'SignUp' }">
+              <v-btn>
+                Zarejestruj
+              </v-btn>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'SignIn' }">
+              <v-btn>
+                Zaloguj
+              </v-btn>
+            </router-link>
+          </li>
+        </template>
 
-      <template v-else>
-        <li>
-          <p class="name">{{ currentEmail }}</p>
-        </li>
+        <template v-else>
+          <li>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn color="primary" dark v-on="on">
+                  {{ currentEmail }}
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item>
+                  <router-link :to="{ name: 'About' }">
+                    <v-list-item-title>O nas</v-list-item-title>
+                  </router-link>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </li>
 
-        <li>
-          <a href="#" @click.prevent="logout">Wyloguj</a>
-        </li>
-      </template>
-    </ul>
-  </nav>
+          <li>
+            <router-link :to="{ name: 'SignUp' }">
+              <v-btn @click.prevent="logout">
+                Wyloguj
+              </v-btn>
+            </router-link>
+          </li>
+        </template>
+      </ul>
+    </nav>
+  </v-toolbar>
 </template>
 
 <script>
@@ -69,6 +97,7 @@ ul {
 }
 li {
   flex-basis: 10%;
+  margin: 0 8px;
 }
 a {
   text-decoration: none;
