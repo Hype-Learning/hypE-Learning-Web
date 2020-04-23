@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="form.valid" class="mt-10">
+  <v-form v-model="valid" class="mt-10">
     <v-container fill-height fluid>
       <v-card class="mx-auto" max-width="700" tile>
         <v-row justify="center" align="center">
@@ -7,7 +7,7 @@
 
           <v-col cols="12" md="7">
             <v-text-field
-              v-model="form.firstname"
+              v-model="form.firstName"
               label="Imię"
               :rules="rules.nameRules"
             ></v-text-field>
@@ -15,7 +15,7 @@
 
           <v-col cols="12" md="7">
             <v-text-field
-              v-model="form.lastname"
+              v-model="form.lastName"
               label="Nazwisko"
               :rules="rules.nameRules"
             ></v-text-field>
@@ -33,22 +33,11 @@
           <v-col cols="12" md="7">
             <v-text-field
               v-model="form.password"
-              :append-icon="form.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="form.showPassword ? 'text' : 'password'"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="showPassword ? 'text' : 'password'"
               :rules="rules.passwordRules"
-              @click:append="form.showPassword = !form.showPassword"
+              @click:append="showPassword = !showPassword"
               label="Hasło"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="7">
-            <v-text-field
-              v-model="form.passwordConfirmation"
-              :append-icon="form.showConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="form.showConfirmation ? 'text' : 'password'"
-              :rules="rules.passwordRules.concat(passwordConfirmationRules)"
-              @click:append="form.showConfirmation = !form.showConfirmation"
-              label="Powtórz hasło"
               required
             ></v-text-field>
           </v-col>
@@ -73,16 +62,15 @@ export default {
   name: "signUp",
   data: () => ({
     form: {
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
-      passwordConfirmation: "",
-      valid: false,
-      showPassword: false,
-      showConfirmation: false,
-      error: null,
     },
+
+    showPassword: false,
+    valid: false,
+    error: null,
     rules: {
       emailRules: [
         (v) => !!v || "E-mail jest wymagany",
@@ -126,17 +114,6 @@ export default {
         .catch(function(error) {
           console.error(error.response);
         });
-    },
-  },
-
-  computed: {
-    passwordConfirmationRules() {
-      return [
-        () =>
-          this.form.password === this.form.passwordConfirmation ||
-          "Hasła muszą do siebie pasować",
-        (v) => !!v || "Potwierdzenie hasła jest wymagane",
-      ];
     },
   },
 };
