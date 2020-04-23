@@ -15,10 +15,10 @@
           <v-col cols="12" md="7">
             <v-text-field
               v-model="form.password"
-              :append-icon="form.show ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="form.show ? 'text' : 'password'"
+              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show ? 'text' : 'password'"
               :rules="rules.passwordRules"
-              @click:append="form.show = !form.show"
+              @click:append="show = !show"
               label="Hasło"
               required
             ></v-text-field>
@@ -47,9 +47,8 @@ export default {
       password: "",
       error: null,
       valid: false,
-      show: false,
     },
-
+    show: false,
     rules: {
       emailRules: [
         (v) => !!v || "E-mail jest wymagany",
@@ -72,7 +71,7 @@ export default {
     authenticate() {
       this.$store.dispatch("signIn");
 
-      signIn(this.$data.form)
+      signIn(this.form)
         .then((res) => {
           this.$store.commit("signInSuccess", res);
           this.$router.push({ name: "About" });
