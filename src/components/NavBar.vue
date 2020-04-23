@@ -71,11 +71,11 @@ export default {
     },
   },
   computed: {
-    currentEmail() {
-      return this.$store.getters.currentEmail;
-    },
     currentUser() {
       return this.$store.getters.currentUser;
+    },
+    currentEmail() {
+      return this.$store.getters.currentUser.email;
     },
   },
 };

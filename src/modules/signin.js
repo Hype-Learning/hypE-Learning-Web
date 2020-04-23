@@ -1,14 +1,12 @@
-import { getLocalUser, getLocalEmail } from "@/helpers/auth";
+import { getLocalUser } from "@/helpers/auth";
 
 const user = getLocalUser();
-const email = getLocalEmail();
 
 const state = {
   currentUser: user,
   isSignedIn: !!user,
   loading: false,
   auth_error: null,
-  email: email,
 };
 const getters = {
   isLoading(state) {
@@ -26,9 +24,6 @@ const getters = {
   authError(state) {
     return state.auth_error;
   },
-  currentEmail(state) {
-    return state.email;
-  },
 };
 const mutations = {
   signIn(state) {
@@ -40,11 +35,9 @@ const mutations = {
     state.auth_error = null;
     state.isSignedIn = true;
     state.loading = false;
-    state.currentUser = payload.accessToken;
-    state.email = JSON.parse(atob(state.currentUser.split(".")[1])).email;
+    state.currentUser = payload;
 
     localStorage.setItem("user", JSON.stringify(state.currentUser));
-    localStorage.setItem("email", JSON.stringify(state.email));
   },
 
   signInFailed(state, payload) {

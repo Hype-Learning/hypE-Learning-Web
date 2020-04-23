@@ -1,26 +1,21 @@
-import axios from "axios"
+import axios from "axios";
 export function initialize(store, router) {
-    router.beforeEach((to, from, next) => {
+  router.beforeEach((to, from, next) => {
+    const currentUser = store.state.currentUser;
+    const role = currentUser.role;
 
-        const requiredAuth = to.matched.some(record => record.meta.requiredAuth);
-        const currentUser = store.state.currentUser;
+    if (!role && !currentUser) {
+      next("/signin");
+    } else if (to.path == "/signin" && currentUser && role === "admin") {
+      next("/about");
+    } else {
+      next();
+    }
+  });
 
-
-        if (requiredAuth && !currentUser) {
-            next('/signin');
-        } else if (to.path == '/signin' && currentUser) {
-            next('/about');
-        } else {
-            next();
-        }
-
-    });
-
-    axios.interceptors.response.use(null, (error) => {
-        if (error.response.status == 401) {
-            store.commit("logout"),
-                router.push("'signin");
-        }
-
-    })
+  axios.interceptors.response.use(null, (error) => {
+    if (error.response.status == 401) {
+      store.commit("logout"), router.push("'signin");
+    }
+  });
 }

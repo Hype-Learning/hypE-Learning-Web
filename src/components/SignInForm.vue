@@ -74,7 +74,7 @@ export default {
       signIn(this.form)
         .then((res) => {
           this.$store.commit("signInSuccess", res);
-          this.$router.push({ name: "About" });
+          this.$router.push({ name: "Home" });
         })
         .catch((error) => {
           this.$store.commit("signInFailed", { error });
