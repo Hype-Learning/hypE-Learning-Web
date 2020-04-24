@@ -2,8 +2,14 @@
   <div class="wrapper">
     <h1>Lista kursów</h1>
     <ul>
-      <li v-for="course in courses" v-bind:key="course.id">
-        {{ course.title }}
+      <li
+        v-for="course in courses"
+        v-bind:key="course.id"
+        @click="goToCourse(course.id)"
+      >
+        <router-link :to="`/courses/${course.id}`">
+          {{ course.title }}
+        </router-link>
       </li>
     </ul>
   </div>
@@ -17,15 +23,20 @@ export default {
   name: "CourseList",
   data() {
     return {
-      courses: []
+      courses: [],
     };
   },
 
+  methods: {
+    goToCourse(id) {
+      axios.get(`${server.baseURL}/courses/` + id);
+    },
+  },
   mounted() {
     axios
       .get(`${server.baseURL}/courses`)
-      .then(courses => (this.courses = courses.data));
-  }
+      .then((courses) => (this.courses = courses.data));
+  },
 };
 </script>
 

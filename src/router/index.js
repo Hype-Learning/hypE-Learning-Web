@@ -69,6 +69,12 @@ const routes = [
       ],
     },
   },
+
+  {
+    path: "/courses/:id",
+    name: "ShowCourse",
+    component: () => import("../views/CourseView.vue"),
+  },
   {
     path: "/signin",
     name: "SignIn",
