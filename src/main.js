@@ -16,10 +16,13 @@ Vue.use(VueRouterUserRoles, { router });
 const store = new Vuex.Store(StoreData);
 
 // initialize(store, router);
-
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: (h) => h(App),
-}).$mount("#app");
+let authenticate = Promise.resolve({ role: "instructor" });
+authenticate.then((user) => {
+  Vue.prototype.$user.set(user);
+  new Vue({
+    router,
+    store,
+    vuetify,
+    render: (h) => h(App),
+  }).$mount("#app");
+});
