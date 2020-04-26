@@ -58,6 +58,16 @@ const routes = [
       roles: ["instructor", "admin"],
     },
   },
+
+  {
+    path: "/profile",
+    name: "UserProfile",
+    component: () => import("../views/UserProfile.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin", "student"],
+    },
+  },
   {
     path: "/signin",
     name: "SignIn",

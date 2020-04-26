@@ -39,6 +39,11 @@
                     <v-list-item-title>O nas</v-list-item-title>
                   </router-link>
                 </v-list-item>
+                <v-list-item>
+                  <router-link :to="{ name: 'UserProfile' }">
+                    <v-list-item-title>Profil</v-list-item-title>
+                  </router-link>
+                </v-list-item>
               </v-list>
             </v-menu>
           </li>
