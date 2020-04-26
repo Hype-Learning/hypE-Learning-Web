@@ -1,4 +1,4 @@
-import Vue from "vue";
+// import Vue from "vue";
 import { getLocalUser } from "@/helpers/auth";
 
 const user = getLocalUser();
@@ -11,11 +11,11 @@ const state = {
 };
 const getters = {
   isLoading(state) {
-    return state.isSignedIn;
+    return state.loading;
   },
 
   isSignedIn(state) {
-    return state.loading;
+    return state.isSignedIn;
   },
 
   currentUser(state) {
@@ -38,7 +38,7 @@ const mutations = {
     state.loading = false;
     state.currentUser = payload;
     localStorage.setItem("user", JSON.stringify(state.currentUser));
-    Vue.prototype.$user.set(state.currentUser);
+    // Vue.prototype.$user.set(state.currentUser);
   },
 
   signInFailed(state, payload) {

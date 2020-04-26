@@ -8,6 +8,10 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("../views/Home.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin", "student"],
+    },
   },
   {
     path: "/about",
@@ -17,23 +21,8 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import("../views/About.vue"),
     meta: {
-      permissions: [
-        {
-          role: "admin",
-          access: true,
-          redirect: "SignIn",
-        },
-        {
-          role: "student",
-          access: false,
-          redirect: "NoPermission",
-        },
-        {
-          role: "inactive",
-          access: false,
-          redirect: "NoPermission",
-        },
-      ],
+      requiresAuth: true,
+      roles: ["admin"],
     },
   },
 
@@ -45,28 +34,8 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import("../views/AddCoursePage.vue"),
     meta: {
-      permissions: [
-        {
-          role: "admin",
-          access: true,
-          redirect: "AddCourse",
-        },
-        {
-          role: "instructor",
-          access: true,
-          redirect: "AddCourse",
-        },
-        {
-          role: "student",
-          access: false,
-          redirect: "NoPermission",
-        },
-        {
-          role: "inactive",
-          access: false,
-          redirect: "NoPermission",
-        },
-      ],
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
     },
   },
 
@@ -74,11 +43,18 @@ const routes = [
     path: "/courses/:id",
     name: "ShowCourse",
     component: () => import("../views/CourseView.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin", "student"],
+    },
   },
   {
     path: "/signin",
     name: "SignIn",
     component: () => import("../views/SignIn.vue"),
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/signup",
@@ -94,6 +70,7 @@ const routes = [
 
   {
     path: "*",
+    name: "ErrorPage",
     component: () => import("../views/ErrorPage.vue"),
   },
 ];
