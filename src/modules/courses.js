@@ -16,10 +16,25 @@ const mutations = {
   addCourseFailed(state) {
     state.loading = false;
   },
+
+  editCourse(state) {
+    state.loading = true;
+  },
+
+  editCourseSuccess(state) {
+    state.loading = false;
+  },
+
+  editCourseFailed(state) {
+    state.loading = false;
+  },
 };
 const actions = {
   addCourse({ commit }) {
     commit("addCourse");
+  },
+  editCourse({ commit }) {
+    commit("editCourse");
   },
 };
 

@@ -32,3 +32,24 @@ export function deleteCourse(id) {
     })
     .then(this.$router.push({ name: "Home" }));
 }
+
+export function editCourse(id, courseData) {
+  const userJson = localStorage.getItem("user");
+  const user = JSON.parse(userJson);
+  const token = user.token;
+  return new Promise((res, rej) => {
+    axios
+      .put(`${server.baseURL}/courses/${id}`, courseData, {
+        headers: {
+          Authorization: ` Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        res(response.data);
+      })
+
+      .catch(() => {
+        rej("Wystąpił błąd");
+      });
+  });
+}

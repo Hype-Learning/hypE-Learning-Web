@@ -48,6 +48,16 @@ const routes = [
       roles: ["instructor", "admin", "student"],
     },
   },
+
+  {
+    path: "/edit/courses/:id",
+    name: "EditCourse",
+    component: () => import("../components/EditCourse.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
+    },
+  },
   {
     path: "/signin",
     name: "SignIn",

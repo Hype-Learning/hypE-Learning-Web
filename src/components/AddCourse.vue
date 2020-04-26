@@ -38,9 +38,6 @@
           </v-row>
         </v-card>
       </v-container>
-      <v-snackbar :color="snackbar.color" v-model="snackbar.show" :top="true">
-        {{ snackbar.message }}
-      </v-snackbar>
     </v-form>
   </div>
 </template>
