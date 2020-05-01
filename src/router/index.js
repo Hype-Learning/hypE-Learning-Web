@@ -80,6 +80,16 @@ const routes = [
   },
 
   {
+    path: "/users/management",
+    name: "UserManagement",
+    component: () => import("../components/UserManagement.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["admin"],
+    },
+  },
+
+  {
     path: "/signin",
     name: "SignIn",
     component: () => import("../views/SignIn.vue"),
