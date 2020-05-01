@@ -8,10 +8,10 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("../views/Home.vue"),
-    meta: {
-      requiresAuth: true,
-      roles: ["instructor", "admin", "student"],
-    },
+    // meta: {
+    //   requiresAuth: true,
+    //   roles: ["instructor", "admin", "student"],
+    // },
   },
   {
     path: "/about",
@@ -68,6 +68,17 @@ const routes = [
       roles: ["instructor", "admin", "student"],
     },
   },
+
+  {
+    path: "/profile/edit",
+    name: "EditProfile",
+    component: () => import("../components/EditProfile.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin", "student"],
+    },
+  },
+
   {
     path: "/signin",
     name: "SignIn",

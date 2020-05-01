@@ -15,9 +15,13 @@
               width="125"
             />
             <br />
-            <v-btn color="warning" class="mr-4">
-              Edytuj profil
-            </v-btn>
+
+            <router-link :to="{ name: 'EditProfile' }">
+              <v-btn color="warning" class="mr-4">
+                Edytuj profil
+              </v-btn>
+            </router-link>
+
             <br />
             <br />
             <template v-if="currentUser.role === 'student'">

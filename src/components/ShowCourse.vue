@@ -23,12 +23,13 @@
                 <v-btn color="error" class="mr-4" @click="deleteCourse(id)">
                   Usuń kurs
                 </v-btn>
-              </template>
-              <router-link :to="{ name: 'EditCourse' }">
-                <v-btn color="warning" class="mr-4">
-                  Edytuj kurs
-                </v-btn>
-              </router-link></v-col
+
+                <router-link :to="{ name: 'EditCourse' }">
+                  <v-btn color="warning" class="mr-4">
+                    Edytuj kurs
+                  </v-btn>
+                </router-link>
+              </template></v-col
             >
           </v-card>
         </v-layout>
