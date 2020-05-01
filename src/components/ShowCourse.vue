@@ -14,12 +14,7 @@
               <p>Ogłoszenia</p>
               <p>{{ announcement }}</p>
 
-              <template
-                v-if="
-                  currentUser.role === 'admin' ||
-                    currentUser.role === 'instructor'
-                "
-              >
+              <template v-if="currentUser.role === 'instructor'">
                 <v-btn color="error" class="mr-4" @click="deleteCourse(id)">
                   Usuń kurs
                 </v-btn>
@@ -29,8 +24,18 @@
                     Edytuj kurs
                   </v-btn>
                 </router-link>
-              </template></v-col
-            >
+                <router-link :to="{ name: 'AddParticipants' }">
+                  <v-btn color="success" class="mr-4">
+                    Dodaj uczestnika
+                  </v-btn>
+                </router-link>
+              </template>
+              <template v-if="currentUser.role === 'admin'">
+                <v-btn color="error" class="mr-4" @click="deleteCourse(id)">
+                  Usuń kurs
+                </v-btn>
+              </template>
+            </v-col>
           </v-card>
         </v-layout>
       </v-container>
@@ -71,8 +76,16 @@ export default {
     },
   },
   beforeMount() {
+    const userJson = localStorage.getItem("user");
+    const user = JSON.parse(userJson);
+    const token = user.token;
+
     axios
-      .get(`${server.baseURL}/courses/${this.$route.params.id}`)
+      .get(`${server.baseURL}/courses/${this.$route.params.id}`, {
+        headers: {
+          Authorization: ` Bearer ${token}`,
+        },
+      })
       .then((course) => {
         (this.id = course.data.id),
           (this.title = course.data.title),

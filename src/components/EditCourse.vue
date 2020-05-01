@@ -4,7 +4,7 @@
       <v-container fill-height fluid>
         <v-card class="mx-auto" max-width="700" tile>
           <v-row justify="center" align="center">
-            <v-col cols="12" md="7"><h1>Dodaj nowy kurs</h1></v-col>
+            <v-col cols="12" md="7"><h1>Edytuj kurs</h1></v-col>
 
             <v-col cols="12" md="7">
               <v-text-field v-model="title" label="Tytuł"></v-text-field>

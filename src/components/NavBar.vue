@@ -34,16 +34,28 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item>
-                  <router-link :to="{ name: 'About' }">
-                    <v-list-item-title>O nas</v-list-item-title>
-                  </router-link>
-                </v-list-item>
+                <template v-if="currentUser.role === 'instructor'">
+                  <v-list-item>
+                    <router-link :to="{ name: 'AddCourse' }">
+                      <v-list-item-title>Dodaj kurs</v-list-item-title>
+                    </router-link>
+                  </v-list-item>
+                </template>
                 <v-list-item>
                   <router-link :to="{ name: 'UserProfile' }">
                     <v-list-item-title>Profil</v-list-item-title>
                   </router-link>
                 </v-list-item>
+
+                <template v-if="currentUser.role === 'admin'">
+                  <v-list-item>
+                    <router-link :to="{ name: 'UserManagement' }">
+                      <v-list-item-title
+                        >Zarządzanie użytkownikami</v-list-item-title
+                      >
+                    </router-link>
+                  </v-list-item>
+                </template>
               </v-list>
             </v-menu>
           </li>

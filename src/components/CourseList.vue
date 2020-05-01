@@ -2,11 +2,7 @@
   <div class="wrapper">
     <h1>Lista kursów</h1>
     <ul>
-      <li
-        v-for="course in courses"
-        v-bind:key="course.id"
-        @click="goToCourse(course.id)"
-      >
+      <li v-for="course in courses" v-bind:key="course.id">
         <router-link :to="`/courses/${course.id}`">
           {{ course.title }}
         </router-link>
