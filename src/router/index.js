@@ -70,6 +70,16 @@ const routes = [
   },
 
   {
+    path: "/courses/:id/topics/create",
+    name: "AddTopic",
+    component: () => import("../components/AddTopic.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
+    },
+  },
+
+  {
     path: "/courses/:id/topics/:topicId/edit",
     name: "EditTopic",
     component: () => import("../components/EditTopic.vue"),

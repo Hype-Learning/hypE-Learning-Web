@@ -31,6 +31,11 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+    <router-link :to="{ name: 'AddTopic' }">
+      <v-btn color="success" class="mr-4">
+        Dodaj
+      </v-btn>
+    </router-link>
   </div>
 </template>
 
