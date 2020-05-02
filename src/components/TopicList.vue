@@ -16,7 +16,11 @@
               Edytuj temat
             </v-btn>
           </router-link>
+          <v-btn color="error" class="mr-4" @click="deleteTopic(topic.id)">
+            Usuń temat
+          </v-btn>
           <br />
+
           <v-btn
             color="success"
             class="mr-4"
@@ -42,7 +46,20 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+    deleteTopic(id) {
+      const userJson = localStorage.getItem("user");
+      const user = JSON.parse(userJson);
+      const token = user.token;
+      axios
+        .delete(`${server.baseURL}/topics/${id}`, {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        })
+        .then(this.$router.push({ name: "Home" }));
+    },
+  },
   mounted() {
     const userJson = localStorage.getItem("user");
     const user = JSON.parse(userJson);

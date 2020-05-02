@@ -89,6 +89,7 @@
 import axios from "axios";
 import { server } from "@/utils/helper";
 import ErrorPageComponent from "@/components/ErrorPageComponent";
+import { deleteCourse } from "@/helpers/course";
 
 export default {
   name: "ShowCourse",
@@ -104,6 +105,9 @@ export default {
   },
 
   methods: {
+    deleteCourse(id) {
+      deleteCourse(id);
+    },
     deleteParticipant: async function(userId) {
       const userJson = localStorage.getItem("user");
       const user = JSON.parse(userJson);
