@@ -9,7 +9,7 @@
 
           <v-card-text>
             <v-container>
-              <v-row v-for="user in users" v-bind:key="user.id">
+              <v-row v-for="user in candidates" v-bind:key="user.id">
                 <v-col cols="3" sm="6" md="3">
                   <v-text-field
                     v-model="user.firstName"
@@ -31,6 +31,15 @@
                     readonly
                   ></v-text-field>
                 </v-col>
+                <v-col cols="3" sm="6" md="3">
+                  <v-btn
+                    color="success"
+                    class="mr-4"
+                    @click="addParticipant(user.id)"
+                  >
+                    Dodaj uczestnika
+                  </v-btn>
+                </v-col>
               </v-row>
             </v-container>
           </v-card-text>
@@ -48,19 +57,17 @@ export default {
   name: "AddParticipants",
   data() {
     return {
-      users: [],
-      roles: ["inactive", "student", "instructor", "admin"],
+      candidates: [],
     };
   },
 
   methods: {
-    changeStatus: function(id) {
+    addParticipant: async function(userId) {
       const userJson = localStorage.getItem("user");
       const user = JSON.parse(userJson);
       const token = user.token;
-
-      axios.put(
-        `${server.baseURL}/users/management/changeStatus/${id}`,
+      await axios.put(
+        `${server.baseURL}/courses/${this.$route.params.id}/students/${userId}`,
         {},
         {
           headers: {
@@ -68,37 +75,31 @@ export default {
           },
         }
       );
-    },
 
-    changeRole: function(id, role) {
-      const userJson = localStorage.getItem("user");
-      const user = JSON.parse(userJson);
-      const token = user.token;
-
-      axios.put(
-        `${server.baseURL}/users/management/${role}/${id}`,
-        {},
-        {
+      axios
+        .get(`${server.baseURL}/courses/${this.$route.params.id}/candidates`, {
           headers: {
             Authorization: ` Bearer ${token}`,
           },
-        }
-      );
+        })
+        .then((candidates) => {
+          this.candidates = candidates.data;
+        });
     },
   },
 
-  //   beforeMount() {
-  //     const userJson = localStorage.getItem("user");
-  //     const user = JSON.parse(userJson);
-  //     const token = user.token;
-  //     axios
-  //       .get(`${server.baseURL}/users/management`, {
-  //         headers: {
-  //           Authorization: ` Bearer ${token}`,
-  //         },
-  //       })
-  //       .then((users) => (this.users = users.data));
-  //   },
+  beforeMount() {
+    const userJson = localStorage.getItem("user");
+    const user = JSON.parse(userJson);
+    const token = user.token;
+    axios
+      .get(`${server.baseURL}/courses/${this.$route.params.id}/candidates`, {
+        headers: {
+          Authorization: ` Bearer ${token}`,
+        },
+      })
+      .then((candidates) => (this.candidates = candidates.data));
+  },
 };
 </script>
 
