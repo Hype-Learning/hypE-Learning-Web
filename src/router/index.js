@@ -60,6 +60,26 @@ const routes = [
   },
 
   {
+    path: "/courses/:id/topics",
+    name: "TopicsList",
+    component: () => import("../components/TopicList.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["student", "instructor", "admin"],
+    },
+  },
+
+  {
+    path: "/courses/:id/topics/:topicId/edit",
+    name: "EditTopic",
+    component: () => import("../components/EditTopic.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
+    },
+  },
+
+  {
     path: "/courses/:id/participants",
     name: "AddParticipants",
     component: () => import("../components/AddParticipants.vue"),

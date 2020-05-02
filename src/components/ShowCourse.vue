@@ -35,6 +35,11 @@
                   Usuń kurs
                 </v-btn>
               </template>
+              <router-link :to="{ name: 'TopicsList' }">
+                <v-btn color="primary" class="mr-4">
+                  Tematy
+                </v-btn>
+              </router-link>
             </v-col>
 
             <h1>Uczestnicy kursu</h1>
