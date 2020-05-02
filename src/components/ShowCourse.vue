@@ -36,6 +36,40 @@
                 </v-btn>
               </template>
             </v-col>
+
+            <h1>Uczestnicy kursu</h1>
+            <v-row v-for="user in participants" v-bind:key="user.id">
+              <v-col cols="3" sm="6" md="3">
+                <v-text-field
+                  v-model="user.firstName"
+                  label="Imię"
+                  readonly
+                ></v-text-field>
+              </v-col>
+              <v-col cols="3" sm="6" md="3">
+                <v-text-field
+                  v-model="user.lastName"
+                  label="Nazwisko"
+                  readonly
+                ></v-text-field>
+              </v-col>
+              <v-col cols="3" sm="6" md="3">
+                <v-text-field
+                  v-model="user.email"
+                  label="E-mail"
+                  readonly
+                ></v-text-field>
+              </v-col>
+              <v-col cols="3" sm="6" md="3">
+                <v-btn
+                  color="error"
+                  class="mr-4"
+                  @click="deleteParticipant(user.id)"
+                >
+                  Usuń uczestnika
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-card>
         </v-layout>
       </v-container>
@@ -49,7 +83,6 @@
 <script>
 import axios from "axios";
 import { server } from "@/utils/helper";
-import { deleteCourse } from "@/helpers/course";
 import ErrorPageComponent from "@/components/ErrorPageComponent";
 
 export default {
@@ -61,12 +94,33 @@ export default {
       title: "",
       description: "",
       announcement: "",
+      participants: [],
     };
   },
 
   methods: {
-    deleteCourse(id) {
-      deleteCourse(id);
+    deleteParticipant: async function(userId) {
+      const userJson = localStorage.getItem("user");
+      const user = JSON.parse(userJson);
+      const token = user.token;
+      await axios.delete(
+        `${server.baseURL}/courses/${this.id}/students/${userId}`,
+        {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        }
+      );
+
+      axios
+        .get(`${server.baseURL}/courses/${this.$route.params.id}`, {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        })
+        .then((course) => {
+          this.participants = course.data.participants;
+        });
     },
   },
 
@@ -90,7 +144,8 @@ export default {
         (this.id = course.data.id),
           (this.title = course.data.title),
           (this.description = course.data.description),
-          (this.announcement = course.data.announcement);
+          (this.announcement = course.data.announcement),
+          (this.participants = course.data.participants);
       });
   },
 };
