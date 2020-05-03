@@ -90,6 +90,16 @@ const routes = [
   },
 
   {
+    path: "/courses/:id/topics/:topicId/solutions",
+    name: "SolutionList",
+    component: () => import("../components/SolutionList.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
+    },
+  },
+
+  {
     path: "/courses/:id/participants",
     name: "AddParticipants",
     component: () => import("../components/AddParticipants.vue"),

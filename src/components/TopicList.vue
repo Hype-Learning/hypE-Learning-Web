@@ -33,6 +33,14 @@
             Wyślij rozwiązanie
           </v-btn>
 
+          <router-link :to="`topics/${topic.id}/solutions`">
+            <v-btn color="warning" class="mr-4">
+              Zobacz rozwiązania
+            </v-btn>
+          </router-link>
+
+          <br />
+
           <br />
           <v-btn
             color="success"
