@@ -20,7 +20,20 @@
             Usuń temat
           </v-btn>
           <br />
+          <br />
 
+          <v-file-input v-model="file" loading="true" label="Dodaj rozwiązanie">
+          </v-file-input>
+
+          <v-btn
+            color="deep-purple accent-4"
+            class="mr-4"
+            @click="addSolution(topic.id)"
+          >
+            Wyślij rozwiązanie
+          </v-btn>
+
+          <br />
           <v-btn
             color="success"
             class="mr-4"
@@ -48,6 +61,7 @@ export default {
   data() {
     return {
       topics: [],
+      file: "",
     };
   },
 
@@ -58,6 +72,22 @@ export default {
       const token = user.token;
       axios
         .delete(`${server.baseURL}/topics/${id}`, {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        })
+        .then(this.$router.push({ name: "Home" }));
+    },
+
+    addSolution(id) {
+      const userJson = localStorage.getItem("user");
+      const user = JSON.parse(userJson);
+      const token = user.token;
+      const data = new FormData();
+      console.log(id);
+      data.append("file", this.file);
+      axios
+        .post(`${server.baseURL}/topics/${id}/solutions`, data, {
           headers: {
             Authorization: ` Bearer ${token}`,
           },

@@ -1,3 +1,3 @@
 export const server = {
-  baseURL: "https://hype-learning.herokuapp.com",
+  baseURL: "http://localhost:3000",
 };

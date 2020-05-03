@@ -58,11 +58,15 @@ export default {
       data.append("title", this.title);
       data.append("description", this.description);
       data.append("file", this.file);
-      axios.put(`${server.baseURL}/topics/${this.userId}`, data, {
-        headers: {
-          Authorization: ` Bearer ${token}`,
-        },
-      });
+      axios.put(
+        `${server.baseURL}/topics/${this.$route.params.topicId}`,
+        data,
+        {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        }
+      );
     },
   },
 };
