@@ -100,6 +100,26 @@ const routes = [
   },
 
   {
+    path: "/courses/:id/topics/:topicId/quiz",
+    name: "CreateQuiz",
+    component: () => import("../components/CreateQuiz.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
+    },
+  },
+
+  {
+    path: "/courses/:id/topics/:topicId/quiz/questions",
+    name: "AddQuestion",
+    component: () => import("../components/AddQuestion.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
+    },
+  },
+
+  {
     path: "/courses/:id/participants",
     name: "AddParticipants",
     component: () => import("../components/AddParticipants.vue"),

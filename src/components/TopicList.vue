@@ -38,17 +38,22 @@
               Zobacz rozwiązania
             </v-btn>
           </router-link>
-
           <br />
-
-          <br />
-          <v-btn
-            color="success"
-            class="mr-4"
-            @click="deleteParticipant(user.id)"
-          >
+          <v-btn color="success" class="mr-4">
             Quiz
           </v-btn>
+
+          <router-link :to="`topics/${topic.id}/quiz`">
+            <v-btn color="success" class="mr-4">
+              Utwórz quiz
+            </v-btn>
+          </router-link>
+
+          <router-link :to="`quiz/questions`">
+            <v-btn color="success" class="mr-4">
+              Dodaj pytanie
+            </v-btn>
+          </router-link>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
