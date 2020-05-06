@@ -3,18 +3,29 @@
     <template v-if="id">
       <v-container fill-height fluid>
         <v-layout row wrap align-start justify-center mt-10>
-          <v-card max-width="700" tile>
+          <v-card max-width="1100" tile>
             <v-col>
               <h1>{{ title }}</h1>
               <br />
 
-              <p>Opis kursu</p>
+              <h3>Opis kursu</h3>
               <p>{{ description }}</p>
               <br />
-              <p>Ogłoszenia</p>
+              <h3>Ogłoszenia</h3>
               <p>{{ announcement }}</p>
+              <br />
+              <router-link :to="{ name: 'TopicsList' }">
+                <v-btn color="primary" class="mr-4">
+                  Tematy
+                </v-btn>
+                <br />
+                <br />
+              </router-link>
 
               <template v-if="currentUser.role === 'instructor'">
+                <br />
+                <h2>Zarządzaj kursem</h2>
+                <br />
                 <v-btn color="error" class="mr-4" @click="deleteCourse(id)">
                   Usuń kurs
                 </v-btn>
@@ -35,15 +46,14 @@
                   Usuń kurs
                 </v-btn>
               </template>
-              <router-link :to="{ name: 'TopicsList' }">
-                <v-btn color="primary" class="mr-4">
-                  Tematy
-                </v-btn>
-              </router-link>
             </v-col>
 
-            <h1>Uczestnicy kursu</h1>
-            <v-row v-for="user in participants" v-bind:key="user.id">
+            <h2 class="pa-2">Uczestnicy kursu</h2>
+            <v-row
+              v-for="user in participants"
+              v-bind:key="user.id"
+              class="pa-2"
+            >
               <v-col cols="3" sm="6" md="3">
                 <v-text-field
                   v-model="user.firstName"

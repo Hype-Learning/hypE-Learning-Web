@@ -26,6 +26,7 @@
               currentUser.role === 'admin' || currentUser.role === 'instructor'
             "
           >
+            <br />
             <h3>Zarządzaj tematem</h3>
             <router-link :to="`topics/${topic.id}/edit`">
               <v-btn color="warning" class="mr-4">
@@ -104,7 +105,7 @@
     <br />
     <router-link :to="{ name: 'AddTopic' }">
       <v-btn color="success" class="mr-4">
-        Dodaj
+        Dodaj temat
       </v-btn>
     </router-link>
   </div>
