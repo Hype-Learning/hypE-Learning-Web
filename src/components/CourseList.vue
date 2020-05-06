@@ -1,13 +1,16 @@
 <template>
   <div class="wrapper">
+    <br />
     <h1>Lista kursów</h1>
-    <ul>
-      <li v-for="course in courses" v-bind:key="course.id">
-        <router-link :to="`/courses/${course.id}`">
-          {{ course.title }}
-        </router-link>
-      </li>
-    </ul>
+    <v-list>
+      <v-list-item v-for="course in courses" v-bind:key="course.id">
+        <v-list-item-content>
+          <router-link :to="`/courses/${course.id}`">
+            <v-list-item-title v-text="course.title"> </v-list-item-title>
+          </router-link>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
   </div>
 </template>
 
@@ -39,16 +42,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .wrapper {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: flex;
-  align-items: center;
-  flex-direction: column;
+  margin-left: 100px;
+  font-size: 16px;
 }
 ul {
   list-style: none;
   width: 80%;
   height: 100%;
+}
+a {
+  text-decoration: none;
 }
 </style>

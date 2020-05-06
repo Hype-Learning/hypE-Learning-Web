@@ -103,11 +103,16 @@
       </v-expansion-panel>
     </v-expansion-panels>
     <br />
-    <router-link :to="{ name: 'AddTopic' }">
-      <v-btn color="success" class="mr-4">
-        Dodaj temat
-      </v-btn>
-    </router-link>
+
+    <template
+      v-if="currentUser.role === 'admin' || currentUser.role === 'instructor'"
+    >
+      <router-link :to="{ name: 'AddTopic' }">
+        <v-btn color="success" class="mr-4">
+          Dodaj temat
+        </v-btn>
+      </router-link>
+    </template>
   </div>
 </template>
 
