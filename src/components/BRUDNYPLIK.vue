@@ -1,46 +1,62 @@
 <template>
   <div>
-    <div>
+    <div v-for="(question, i) in questions" v-bind:key="question.id">
       <v-form class="mt-10">
         <v-container fill-height fluid>
           <v-card class="mx-auto" max-width="700" tile>
             <h1 justify="center" align="center">Dodaj nowe pytanie</h1>
             <v-row justify="center" align="center">
               <v-col cols="12" md="10">
-                <v-text-field v-model="title" label="Pytanie"></v-text-field>
+                {{ questions[i].id }}
+                <v-text-field
+                  v-model="question.text"
+                  label="Pytanie"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="8">
                 <v-text-field
                   cols="8"
                   md="8"
                   label="Odpowiedź nr 1"
-                  v-model="a"
+                  v-model="questions[i].answers.a"
                 ></v-text-field>
                 <v-text-field
                   cols="8"
                   md="8"
-                  v-model="b"
+                  v-model="questions[i].answers.b"
                   label="Odpowiedź nr 2"
                 ></v-text-field>
                 <v-text-field
                   cols="8"
                   md="8"
-                  v-model="c"
+                  v-model="questions[i].answers.c"
                   label="Odpowiedź nr 3"
                 ></v-text-field>
                 <v-text-field
                   cols="8"
                   md="8"
-                  v-model="d"
+                  v-model="questions[i].answers.d"
                   label="Odpowiedź nr 4"
                 ></v-text-field>
 
                 <h3>Zaznacz prawidłową odpowiedź</h3>
                 <v-radio-group>
-                  <v-radio label="a" @change="setCorrectAnswer('a')"></v-radio>
-                  <v-radio label="b" @change="setCorrectAnswer('b')"></v-radio>
-                  <v-radio label="c" @change="setCorrectAnswer('c')"></v-radio>
-                  <v-radio label="d" @change="setCorrectAnswer('d')"></v-radio>
+                  <v-radio
+                    label="a"
+                    @change="changeCorrectAnswer('a')"
+                  ></v-radio>
+                  <v-radio
+                    label="b"
+                    @change="changeCorrectAnswer('b')"
+                  ></v-radio>
+                  <v-radio
+                    label="c"
+                    @change="changeCorrectAnswer('c')"
+                  ></v-radio>
+                  <v-radio
+                    label="d"
+                    @change="changeCorrectAnswer('d')"
+                  ></v-radio>
                 </v-radio-group>
               </v-col>
             </v-row>
@@ -64,28 +80,27 @@ export default {
   name: "AddQuestion",
 
   data: () => ({
+    id: 0,
     title: "",
-    a: "",
-    b: "",
-    c: "",
-    d: "",
-    correctAnswer: "",
-  }),
+    question: {
+      id: "",
+      text: "",
+      answers: { a: "", b: "", c: "", d: "" },
 
+      correctAnswer: "",
+    },
+    questions: [],
+  }),
   methods: {
-    addQuestion: function() {
+    addQuiz: function() {
       const userJson = localStorage.getItem("user");
       const user = JSON.parse(userJson);
       const token = user.token;
       axios.post(
-        `${server.baseURL}/quizzes/${this.$route.params.quizId}/question`,
+        `${server.baseURL}/quizzes/${this.$route.params.topicId}`,
         {
           title: this.title,
-          a: this.a,
-          b: this.b,
-          c: this.c,
-          d: this.d,
-          correctAnswer: this.correctAnswer,
+          questions: this.questions,
         },
         {
           headers: {
@@ -95,8 +110,8 @@ export default {
       );
     },
 
-    setCorrectAnswer: function(answer) {
-      this.correctAnswer = answer;
+    addQuestion: function() {
+      this.questions.push(this.question);
     },
   },
 };

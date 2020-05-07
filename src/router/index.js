@@ -100,6 +100,16 @@ const routes = [
   },
 
   {
+    path: "/courses/:id/topics/:topicId/quiz/:quizId/solve",
+    name: "ShowQuiz",
+    component: () => import("../components/ShowQuiz.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["student", "instructor", "admin"],
+    },
+  },
+
+  {
     path: "/courses/:id/topics/:topicId/quiz",
     name: "CreateQuiz",
     component: () => import("../components/CreateQuiz.vue"),
@@ -110,7 +120,7 @@ const routes = [
   },
 
   {
-    path: "/courses/:id/topics/:topicId/quiz/questions",
+    path: "/courses/:id/topics/:topicId/quiz/:quizId/questions",
     name: "AddQuestion",
     component: () => import("../components/AddQuestion.vue"),
     meta: {

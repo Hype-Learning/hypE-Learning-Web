@@ -76,11 +76,11 @@
           <v-spacer></v-spacer>
           <h3>Quiz</h3>
 
-          <template v-if="currentUser.role === 'student'">
+          <router-link :to="`topics/${topic.id}/quiz/${topic.quiz.id}/solve`">
             <v-btn color="success" class="mr-4">
               Rozpocznij quiz
             </v-btn>
-          </template>
+          </router-link>
 
           <template
             v-if="
@@ -93,7 +93,9 @@
               </v-btn>
             </router-link>
 
-            <router-link :to="`quiz/questions`">
+            <router-link
+              :to="`topics/${topic.id}/quiz/${topic.quiz.id}/questions`"
+            >
               <v-btn color="secondary" class="mr-4">
                 Dodaj pytanie
               </v-btn>
