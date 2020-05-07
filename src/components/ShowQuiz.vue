@@ -72,6 +72,11 @@
     <v-btn color="secondary" class="mr-4" @click="sendQuiz(quiz.id)">
       Wyślij quiz
     </v-btn>
+
+    <template v-if="result >= 0">
+      <h1>Twój wynik to:</h1>
+      <h1>{{ result }}</h1>
+    </template>
   </div>
 </template>
 
@@ -86,6 +91,7 @@ export default {
       quiz: {},
       questions: [],
       answers: [],
+      result: "",
     };
   },
 
@@ -94,17 +100,19 @@ export default {
       const userJson = localStorage.getItem("user");
       const user = JSON.parse(userJson);
       const token = user.token;
-      axios.post(
-        `${server.baseURL}/quizzes/solve/${this.$route.params.quizId}`,
-        {
-          answers: this.answers,
-        },
-        {
-          headers: {
-            Authorization: ` Bearer ${token}`,
+      axios
+        .post(
+          `${server.baseURL}/quizzes/solve/${this.$route.params.quizId}`,
+          {
+            answers: this.answers,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: ` Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => (this.result = res.data));
     },
 
     changeCorrectAnswer: function(id, answer) {
