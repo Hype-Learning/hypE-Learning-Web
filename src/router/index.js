@@ -100,7 +100,7 @@ const routes = [
   },
 
   {
-    path: "/courses/:id/topics/:topicId/quiz/:quizId/solve",
+    path: "/topics/:topicId/quiz/:quizId/solve",
     name: "ShowQuiz",
     component: () => import("../components/ShowQuiz.vue"),
     meta: {
@@ -120,7 +120,17 @@ const routes = [
   },
 
   {
-    path: "/courses/:id/topics/:topicId/quiz/:quizId/questions",
+    path: "/topics/:topicId/quiz/:quizId/edit",
+    name: "EditQuiz",
+    component: () => import("../components/EditQuiz.vue"),
+    meta: {
+      requiresAuth: true,
+      roles: ["instructor", "admin"],
+    },
+  },
+
+  {
+    path: "/topics/:topicId/quiz/:quizId/questions",
     name: "AddQuestion",
     component: () => import("../components/AddQuestion.vue"),
     meta: {

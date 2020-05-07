@@ -74,9 +74,22 @@
 
           <br />
           <v-spacer></v-spacer>
+
           <h3>Quiz</h3>
 
-          <router-link :to="`topics/${topic.id}/quiz/${topic.quiz.id}/solve`">
+          <router-link
+            :to="
+              topic.quiz
+                ? {
+                    name: 'ShowQuiz',
+                    params: {
+                      topicId: topic.id,
+                      quizId: topic.quiz.id,
+                    },
+                  }
+                : {}
+            "
+          >
             <v-btn color="success" class="mr-4">
               Rozpocznij quiz
             </v-btn>
@@ -94,7 +107,17 @@
             </router-link>
 
             <router-link
-              :to="`topics/${topic.id}/quiz/${topic.quiz.id}/questions`"
+              :to="
+                topic.quiz
+                  ? {
+                      name: 'AddQuestion',
+                      params: {
+                        topicId: topic.id,
+                        quizId: topic.quiz.id,
+                      },
+                    }
+                  : {}
+              "
             >
               <v-btn color="secondary" class="mr-4">
                 Dodaj pytanie

@@ -3,6 +3,20 @@
     <br />
     <h1>{{ quiz.title }}</h1>
 
+    <template
+      v-if="currentUser.role === 'admin' || currentUser.role === 'instructor'"
+    >
+      <v-btn color="error" class="mr-4" @click="deleteQuiz(quiz.id)">
+        Usuń quiz
+      </v-btn>
+
+      <router-link :to="{ name: 'EditQuiz' }">
+        <v-btn color="warning" class="mr-4">
+          Edytuj quiz
+        </v-btn>
+      </router-link>
+    </template>
+
     <div v-for="(question, i) in questions" v-bind:key="question.id">
       <v-form class="mt-10">
         <v-container fill-height fluid>
@@ -117,6 +131,24 @@ export default {
 
     changeCorrectAnswer: function(id, answer) {
       this.answers[id - 1] = answer;
+    },
+
+    deleteQuiz(id) {
+      const userJson = localStorage.getItem("user");
+      const user = JSON.parse(userJson);
+      const token = user.token;
+      axios
+        .delete(`${server.baseURL}/quizzes/${id}`, {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        })
+        .then(this.$router.push({ name: "Home" }));
+    },
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.currentUser;
     },
   },
 
