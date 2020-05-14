@@ -17,13 +17,11 @@
       </router-link>
     </template>
 
-    <div v-for="(question, i) in questions" v-bind:key="question.id">
+    <div v-for="(question, i) in questions" v-bind:key="i">
       <v-form class="mt-10">
         <v-container fill-height fluid>
           <v-card class="mx-auto" max-width="700" tile>
-            <h1 justify="center" align="center">
-              Pytanie nr {{ questions[i].id }}
-            </h1>
+            <h1 justify="center" align="center">Pytanie nr {{ i }}</h1>
             <v-row justify="center" align="center">
               <v-col cols="12" md="10">
                 <v-text-field
@@ -61,19 +59,19 @@
                 <v-radio-group>
                   <v-radio
                     label="a"
-                    @change="changeCorrectAnswer(question.id, 'a')"
+                    @change="changeCorrectAnswer(i, 'a')"
                   ></v-radio>
                   <v-radio
                     label="b"
-                    @change="changeCorrectAnswer(question.id, 'b')"
+                    @change="changeCorrectAnswer(i, 'b')"
                   ></v-radio>
                   <v-radio
                     label="c"
-                    @change="changeCorrectAnswer(question.id, 'c')"
+                    @change="changeCorrectAnswer(i, 'c')"
                   ></v-radio>
                   <v-radio
                     label="d"
-                    @change="changeCorrectAnswer(question.id, 'd')"
+                    @change="changeCorrectAnswer(i, 'd')"
                   ></v-radio>
                 </v-radio-group>
               </v-col>
@@ -130,7 +128,7 @@ export default {
     },
 
     changeCorrectAnswer: function(id, answer) {
-      this.answers[id - 1] = answer;
+      this.answers[id] = answer;
     },
 
     deleteQuiz(id) {
