@@ -48,43 +48,45 @@
               </template>
             </v-col>
 
-            <h2 class="pa-2">Uczestnicy kursu</h2>
-            <v-row
-              v-for="user in participants"
-              v-bind:key="user.id"
-              class="pa-2"
-            >
-              <v-col cols="3" sm="6" md="3">
-                <v-text-field
-                  v-model="user.firstName"
-                  label="Imię"
-                  readonly
-                ></v-text-field>
-              </v-col>
-              <v-col cols="3" sm="6" md="3">
-                <v-text-field
-                  v-model="user.lastName"
-                  label="Nazwisko"
-                  readonly
-                ></v-text-field>
-              </v-col>
-              <v-col cols="3" sm="6" md="3">
-                <v-text-field
-                  v-model="user.email"
-                  label="E-mail"
-                  readonly
-                ></v-text-field>
-              </v-col>
-              <v-col cols="3" sm="6" md="3">
-                <v-btn
-                  color="error"
-                  class="mr-4"
-                  @click="deleteParticipant(user.id)"
-                >
-                  Usuń uczestnika
-                </v-btn>
-              </v-col>
-            </v-row>
+            <template v-if="currentUser.role === 'instructor'">
+              <h2 class="pa-2">Uczestnicy kursu</h2>
+              <v-row
+                v-for="user in participants"
+                v-bind:key="user.id"
+                class="pa-2"
+              >
+                <v-col cols="3" sm="6" md="3">
+                  <v-text-field
+                    v-model="user.firstName"
+                    label="Imię"
+                    readonly
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" sm="6" md="3">
+                  <v-text-field
+                    v-model="user.lastName"
+                    label="Nazwisko"
+                    readonly
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" sm="6" md="3">
+                  <v-text-field
+                    v-model="user.email"
+                    label="E-mail"
+                    readonly
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3" sm="6" md="3">
+                  <v-btn
+                    color="error"
+                    class="mr-4"
+                    @click="deleteParticipant(user.id)"
+                  >
+                    Usuń uczestnika
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </template>
           </v-card>
         </v-layout>
       </v-container>
