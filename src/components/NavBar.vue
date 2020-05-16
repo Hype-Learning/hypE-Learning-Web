@@ -2,7 +2,7 @@
   <v-toolbar>
     <router-link :to="{ name: 'Home' }">
       <v-icon>fas fa-home</v-icon>
-      HypE-Learning
+      <span>HypE-Learning</span>
     </router-link>
 
     <v-spacer></v-spacer>
