@@ -21,58 +21,60 @@
       <v-form class="mt-10">
         <v-container fill-height fluid>
           <v-card class="mx-auto" max-width="700" tile>
-            <h1 justify="center" align="center">Pytanie nr {{ i }}</h1>
+            <h1 justify="center" align="center">Pytanie nr {{ i + 1 }}</h1>
             <v-row justify="center" align="center">
               <v-col cols="12" md="10">
                 <v-text-field
                   v-model="question.title"
                   label="Pytanie"
+                  readonly
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="8">
-                <v-text-field
-                  cols="8"
-                  md="8"
-                  label="Odpowiedź nr 1"
-                  v-model="questions[i].a"
-                ></v-text-field>
-                <v-text-field
-                  cols="8"
-                  md="8"
-                  v-model="questions[i].b"
-                  label="Odpowiedź nr 2"
-                ></v-text-field>
-                <v-text-field
-                  cols="8"
-                  md="8"
-                  v-model="questions[i].c"
-                  label="Odpowiedź nr 3"
-                ></v-text-field>
-                <v-text-field
-                  cols="8"
-                  md="8"
-                  v-model="questions[i].d"
-                  label="Odpowiedź nr 4"
-                ></v-text-field>
-
-                <h3>Zaznacz prawidłową odpowiedź</h3>
                 <v-radio-group>
-                  <v-radio
-                    label="a"
-                    @change="changeCorrectAnswer(i, 'a')"
-                  ></v-radio>
-                  <v-radio
-                    label="b"
-                    @change="changeCorrectAnswer(i, 'b')"
-                  ></v-radio>
-                  <v-radio
-                    label="c"
-                    @change="changeCorrectAnswer(i, 'c')"
-                  ></v-radio>
-                  <v-radio
-                    label="d"
-                    @change="changeCorrectAnswer(i, 'd')"
-                  ></v-radio>
+                  <v-layout row align-baseline>
+                    <v-radio @change="changeCorrectAnswer(i, 'a')" />
+                    <v-text-field
+                      cols="8"
+                      md="8"
+                      label="Odpowiedź nr 1"
+                      v-model="questions[i].a"
+                      readonly
+                    ></v-text-field>
+                  </v-layout>
+
+                  <v-layout row align-baseline>
+                    <v-radio @change="changeCorrectAnswer(i, 'b')" />
+                    <v-text-field
+                      cols="8"
+                      md="8"
+                      v-model="questions[i].b"
+                      label="Odpowiedź nr 2"
+                      readonly
+                    ></v-text-field>
+                  </v-layout>
+
+                  <v-layout row align-baseline>
+                    <v-radio @change="changeCorrectAnswer(i, 'c')" />
+                    <v-text-field
+                      cols="8"
+                      md="8"
+                      v-model="questions[i].c"
+                      label="Odpowiedź nr 3"
+                      readonly
+                    ></v-text-field>
+                  </v-layout>
+
+                  <v-layout row align-baseline>
+                    <v-radio @change="changeCorrectAnswer(i, 'd')" />
+                    <v-text-field
+                      cols="8"
+                      md="8"
+                      v-model="questions[i].d"
+                      label="Odpowiedź nr 4"
+                      readonly
+                    ></v-text-field>
+                  </v-layout>
                 </v-radio-group>
               </v-col>
             </v-row>

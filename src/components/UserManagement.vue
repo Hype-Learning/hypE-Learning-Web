@@ -31,14 +31,27 @@
                     readonly
                   ></v-text-field>
                 </v-col>
-                <v-col cols="2" sm="6" md="2">
-                  <v-select
-                    @input="changeRole(user.id, user.role)"
-                    v-model="user.role"
-                    :items="roles"
-                    label="Rola"
-                  ></v-select>
-                </v-col>
+
+                <template v-if="user.role === 'inactive'">
+                  <v-col cols="2" sm="6" md="2">
+                    <v-select
+                      @input="changeRole(user.id, user.role)"
+                      v-model="user.role"
+                      :items="roles"
+                      label="Rola"
+                    ></v-select>
+                  </v-col>
+                </template>
+                <template v-else>
+                  <v-col cols="2" sm="6" md="2">
+                    <v-text-field
+                      v-model="user.role"
+                      label="Rola"
+                      readonly
+                    ></v-text-field>
+                  </v-col>
+                </template>
+
                 <v-col cols="1" sm="6" md="1" @click="changeStatus(user.id)">
                   <span>Ban</span>
                   <v-switch
